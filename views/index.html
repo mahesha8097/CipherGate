@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CipherGate — Authentication Security Scanner</title>
+<meta name="description" content="Scan any website's login page for authentication security weaknesses: headers, cookies, TLS, CSRF, JWT, CAPTCHA, and MFA." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="grid-overlay"></div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <div class="brand-mark">🛡</div>
+      CipherGate
+    </div>
+    <div class="nav-links">
+      <a href="/" class="active">Scan</a>
+      <a href="/dashboard">Dashboard</a>
+      <span class="status-pill"><span class="status-dot"></span> ENGINE ONLINE</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="hero">
+    <div class="hero-eyebrow">// authentication security scanner</div>
+    <h1>Audit any login page's<br/>security posture in seconds.</h1>
+    <p>
+      Enter a website URL and CipherGate inspects headers, cookies, TLS configuration,
+      CSRF protection, JWT handling, CAPTCHA, and MFA availability — then generates a
+      professional, downloadable security report.
+    </p>
+  </section>
+
+  <div class="glass scan-panel">
+    <form id="scan-form" class="scan-form">
+      <div class="scan-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="url-input" class="scan-input" type="text" placeholder="https://example.com/login" autocomplete="off" required />
+      </div>
+      <button id="scan-btn" type="submit" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
+        Run Audit
+      </button>
+    </form>
+
+    <div class="check-list">
+      <span class="check-chip">HTTPS</span>
+      <span class="check-chip">HSTS</span>
+      <span class="check-chip">CSP</span>
+      <span class="check-chip">Cookies</span>
+      <span class="check-chip">CSRF</span>
+      <span class="check-chip">JWT</span>
+      <span class="check-chip">CORS</span>
+      <span class="check-chip">CAPTCHA</span>
+      <span class="check-chip">MFA</span>
+      <span class="check-chip">TLS Cert</span>
+    </div>
+  </div>
+
+  <div id="error-banner" class="error-banner"></div>
+
+  <div id="loading-wrap" class="glass loading-wrap">
+    <div class="spinner"></div>
+    <div style="font-family: var(--font-display); font-weight:600;">Running security audit...</div>
+    <div id="loading-step" class="loading-step">Initializing scan engine...</div>
+    <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+  </div>
+
+  <section class="features">
+    <div class="section-title">What gets checked</div>
+    <div class="section-sub">Comprehensive checks across 8 audit modules</div>
+    <div class="feature-grid">
+      <div class="glass feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h3>Transport Security</h3>
+        <p>HTTPS enforcement, TLS protocol version, certificate validity, and mixed-content detection.</p>
+      </div>
+      <div class="glass feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Security Headers</h3>
+        <p>HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer & Permissions Policy, CORS.</p>
+      </div>
+      <div class="glass feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><path d="M16 8L2 22"/></svg>
+        </div>
+        <h3>Cookie Hygiene</h3>
+        <p>Secure, HttpOnly, and SameSite attributes on every session cookie.</p>
+      </div>
+      <div class="glass feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>
+        </div>
+        <h3>Login Form &amp; CSRF</h3>
+        <p>Form method, autocomplete behavior, and anti-CSRF token detection.</p>
+      </div>
+      <div class="glass feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09c0 .68.39 1.3 1 1.51.6.25 1.3.12 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.45.52-.58 1.22-.33 1.82.21.61.83 1 1.51 1H21a2 2 0 110 4h-.09c-.68 0-1.3.39-1.51 1z"/></svg>
+        </div>
+        <h3>JWT Inspection</h3>
+        <p>Decodes JWT headers/payloads to flag weak "alg" values and missing expiry claims.</p>
+      </div>
+      <div class="glass feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <h3>CAPTCHA &amp; MFA</h3>
+        <p>Detects reCAPTCHA/hCaptcha/Turnstile and heuristic references to multi-factor authentication.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>CipherGate — built by <a href="https://github.com/mahesha8097" target="_blank" rel="noopener">@mahesha</a>. For authorized security testing only.</footer>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

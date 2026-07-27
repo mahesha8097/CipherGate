@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — CipherGate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="grid-overlay"></div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand"><div class="brand-mark">🛡</div> CipherGate</div>
+    <div class="nav-links">
+      <a href="/">Scan</a>
+      <a href="/dashboard" class="active">Dashboard</a>
+      <span class="status-pill"><span class="status-dot"></span> ENGINE ONLINE</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="dash-header">
+    <div class="section-title" style="text-align:left;">Audit Dashboard</div>
+    <div class="section-sub" style="text-align:left; margin-bottom:24px;">Run a new scan or review recent audit history.</div>
+  </div>
+
+  <div class="glass" style="padding:22px; margin-bottom:28px;">
+    <form id="dash-scan-form" class="scan-form">
+      <div class="scan-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="dash-url-input" class="scan-input" type="text" placeholder="https://example.com/login" autocomplete="off" required />
+      </div>
+      <button id="dash-scan-btn" type="submit" class="btn btn-primary">Run Audit</button>
+    </form>
+  </div>
+
+  <div class="glass card">
+    <h2>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
+      Recent Audit History
+    </h2>
+    <div id="history-list"></div>
+    <div id="history-empty" class="empty-state" style="display:none;">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div>No audits yet. Run your first scan above.</div>
+    </div>
+  </div>
+
+  <footer>CipherGate — built by <a href="https://github.com/mahesha8097" target="_blank" rel="noopener">@mahesha</a>. For authorized security testing only.</footer>
+</div>
+
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

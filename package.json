@@ -1,0 +1,47 @@
+{
+  "name": "ciphergate",
+  "version": "1.0.0",
+  "description": "CipherGate - an authentication security audit tool that analyzes the login security posture of a target website (headers, cookies, TLS, CSRF, JWT, CAPTCHA, MFA) and generates a professional audit report.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "ciphergate",
+    "security",
+    "authentication",
+    "audit",
+    "penetration-testing",
+    "cybersecurity",
+    "owasp"
+  ],
+  "author": "Mahesha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahesha8097/ciphergate.git"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.7.0",
+    "pdfkit": "^0.15.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
