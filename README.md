@@ -7,6 +7,11 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
 ![Node](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue)
+![Live Demo](https://img.shields.io/badge/demo-live-00e5ff)
+
+🔗 **Live Demo:** [ciphergate-4xxs.onrender.com](https://ciphergate-4xxs.onrender.com/)
+
+> Hosted on Render's free tier — the first request after a period of inactivity may take 30–60 seconds to wake the server.
 
 ---
 
@@ -58,60 +63,57 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
 > **Design note:** the audit engine analyzes the static HTML/HTTP response of a target page (via `axios` + `cheerio`) rather than rendering it in a headless browser. This keeps the tool lightweight and dependency-free to install. Headless-browser rendering for JavaScript-heavy/SPA login pages is listed under *Future Improvements* below.
 
 ## 📁 Folder Structure
-
-```
 ciphergate/
 │
-├── server.js                  # Express app entry point
+├── server.js # Express app entry point
 ├── package.json
 ├── .env.example
 ├── .gitignore
 ├── README.md
 │
 ├── routes/
-│   ├── audit.js                # POST /audit, GET /audit/history
-│   └── report.js                # GET /report/pdf/:id, GET /report/json/:id
+│ ├── audit.js # POST /audit, GET /audit/history
+│ └── report.js # GET /report/pdf/:id, GET /report/json/:id
 │
 ├── controllers/
-│   ├── auditController.js       # orchestrates the scan pipeline
-│   └── reportController.js      # serves report downloads
+│ ├── auditController.js # orchestrates the scan pipeline
+│ └── reportController.js # serves report downloads
 │
 ├── services/
-│   ├── headerScanner.js
-│   ├── cookieScanner.js
-│   ├── loginScanner.js
-│   ├── tlsScanner.js
-│   ├── csrfScanner.js
-│   ├── jwtScanner.js
-│   ├── captchaScanner.js
-│   ├── mfaScanner.js
-│   ├── scoreCalculator.js       # combines all findings into a 0-100 score
-│   └── reportGenerator.js       # builds the JSON report and renders the PDF
+│ ├── headerScanner.js
+│ ├── cookieScanner.js
+│ ├── loginScanner.js
+│ ├── tlsScanner.js
+│ ├── csrfScanner.js
+│ ├── jwtScanner.js
+│ ├── captchaScanner.js
+│ ├── mfaScanner.js
+│ ├── scoreCalculator.js # combines all findings into a 0-100 score
+│ └── reportGenerator.js # builds the JSON report and renders the PDF
 │
 ├── utils/
-│   ├── validator.js             # URL validation + basic SSRF guarding
-│   ├── helpers.js
-│   └── constants.js             # scoring weights, severities, detection signatures
+│ ├── validator.js # URL validation + basic SSRF guarding
+│ ├── helpers.js
+│ └── constants.js # scoring weights, severities, detection signatures
 │
 ├── middleware/
-│   ├── errorHandler.js
-│   └── logger.js
+│ ├── errorHandler.js
+│ └── logger.js
 │
 ├── public/
-│   ├── css/style.css
-│   ├── js/main.js               # scan form logic (landing page)
-│   ├── js/dashboard.js          # audit history + quick scan
-│   ├── js/report.js             # renders the report page
-│   └── images/
+│ ├── css/style.css
+│ ├── js/main.js # scan form logic (landing page)
+│ ├── js/dashboard.js # audit history + quick scan
+│ ├── js/report.js # renders the report page
+│ └── images/
 │
 ├── views/
-│   ├── index.html               # scan landing page
-│   ├── dashboard.html           # audit history dashboard
-│   └── report.html              # report viewer
+│ ├── index.html # scan landing page
+│ ├── dashboard.html # audit history dashboard
+│ └── report.html # report viewer
 │
-├── reports/                     # generated PDF/JSON reports (gitignored)
-└── screenshots/                 # UI screenshots referenced in this README
-```
+├── reports/ # generated PDF/JSON reports (gitignored)
+└── screenshots/ # UI screenshots referenced in this README
 
 ## 🚀 Installation
 
@@ -184,15 +186,17 @@ Every audit starts at 100 points. Each failed check deducts a weighted amount ba
 
 ## ☁️ Deploying to Render
 
+This project is already deployed at [ciphergate-4xxs.onrender.com](https://ciphergate-4xxs.onrender.com/). To deploy your own instance:
+
 1. Push this project to a GitHub repository.
 2. On [Render](https://render.com), click **New > Web Service** and connect your repo.
 3. Configure:
    - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
+   - **Start Command:** `npm start` (or `node server.js`)
    - **Environment Variables:** copy the keys from `.env.example` (set `NODE_ENV=production`)
 4. Deploy. Render assigns a public URL you can share.
 
-> Render's free tier spins down after inactivity — the first request after idling may take a few extra seconds.
+> Render's free tier spins down after inactivity — the first request after idling may take 30–60 seconds.
 
 ## 🛠️ Troubleshooting
 
