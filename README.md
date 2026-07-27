@@ -33,25 +33,30 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
 
 ## 🖼️ Screenshots
 
-### Scan Page
+## Scan Page
+
 ![Scan Page](screenshots/scan-page.png)
 
 ### Live Audit Progress
+
 ![Scan Loading](screenshots/scan-loading.png)
 
 ### Security Report Overview
+
 ![Report Overview](screenshots/report-overview.png)
 
 ### Audit History Dashboard
+
 ![Dashboard History](screenshots/dashboard-history.png)
 
 ### Downloadable PDF Report
+
 ![PDF Report](screenshots/pdf-report.png)
 
 ## 🧱 Tech Stack
 
 | Layer | Technology |
-|---|---|
+| --- | --- |
 | Frontend | HTML5, CSS3 (custom glassmorphic theme), Vanilla JavaScript, Chart.js |
 | Backend | Node.js, Express.js |
 | HTTP / HTML Parsing | Axios, Cheerio |
@@ -60,12 +65,11 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
 | Logging | Morgan + a custom request logger |
 | Utilities | dotenv, uuid, jsonwebtoken / jwt-decode |
 
-> **Design note:** the audit engine analyzes the static HTML/HTTP response of a target page (via `axios` + `cheerio`) rather than rendering it in a headless browser. This keeps the tool lightweight and dependency-free to install. Headless-browser rendering for JavaScript-heavy/SPA login pages is listed under *Future Improvements* below.
+> **Design note:** the audit engine analyzes the static HTML/HTTP response of a target page (via `axios` + `cheerio`) rather than rendering it in a headless browser. This keeps the tool lightweight and dependency-free to install. Headless-browser rendering for JavaScript-heavy/SPA login pages is a planned future improvement.
 
 ## 📁 Folder Structure
-## 📁 Folder Structure
 
-- **`ciphergate/`**
+- **Project root**
   - `server.js` — Express app entry point
   - `package.json`
   - `.env.example`
@@ -73,7 +77,7 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
   - `README.md`
   - **`routes/`**
     - `audit.js` — `POST /audit`, `GET /audit/history`
-    - `report.js` — `GET /report/pdf/:id`, `GET /report/json/:id`
+    - `report.js` — `GET /report/pdf/:auditId`, `GET /report/json/:auditId`
   - **`controllers/`**
     - `auditController.js` — orchestrates the scan pipeline
     - `reportController.js` — serves report downloads
@@ -114,11 +118,14 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
 git clone https://github.com/mahesha8097/ciphergate.git
 cd ciphergate
 npm install
+# macOS / Linux
 cp .env.example .env
+# Windows PowerShell
+copy .env.example .env
 npm start
 ```
 
-The app runs at **http://localhost:5000**.
+The app runs at **<http://localhost:5000>**.
 
 ## 🖥️ Running in VS Code
 
@@ -131,14 +138,17 @@ The app runs at **http://localhost:5000**.
 ## 📡 API Reference
 
 ### `POST /audit`
+
 Runs a full authentication security audit on a target URL.
 
 **Request body:**
+
 ```json
 { "url": "https://example.com/login" }
 ```
 
 **Response shape:**
+
 ```json
 {
   "success": true,
@@ -149,20 +159,54 @@ Runs a full authentication security audit on a target URL.
     "executiveSummary": "...",
     "riskScore": { "value": 85, "rating": "Good", "color": "#7CFC00" },
     "stats": { "totalChecks": 19, "passed": 16, "failed": 3 },
-    "passedChecks": [ "..." ],
-    "failedChecks": [ "..." ],
-    "informationalNotes": [ "..." ]
+    "passedChecks": [
+      {
+        "module": "Header Scanner",
+        "name": "X-Content-Type-Options",
+        "severity": "Low",
+        "status": "Pass",
+        "detail": "Header is set to nosniff.",
+        "recommendation": ""
+      }
+    ],
+    "failedChecks": [
+      {
+        "module": "TLS Scanner",
+        "name": "HTTPS Enforcement",
+        "severity": "High",
+        "status": "Fail",
+        "detail": "The site is reachable over HTTP and redirects to HTTPS.",
+        "recommendation": "Enforce HTTPS with a redirect and HSTS."
+      }
+    ],
+    "informationalNotes": [
+      {
+        "module": "JWT Scanner",
+        "name": "JWT token not found",
+        "severity": "Info",
+        "status": "Pass",
+        "detail": "No JWT was detected in page markup or headers.",
+        "recommendation": ""
+      }
+    ],
+    "modules": [
+      { "module": "TLS Scanner", "checks": 5, "passed": 4 }
+    ],
+    "generatedAt": "2026-07-27T14:00:00.000Z"
   }
 }
 ```
 
 ### `GET /report/pdf/:auditId`
+
 Downloads the generated PDF report for a given audit ID.
 
 ### `GET /report/json/:auditId`
+
 Downloads the raw JSON report for a given audit ID.
 
 ### `GET /audit/history`
+
 Returns the most recent audits (kept in memory, used by the dashboard).
 
 ## 📊 Security Scoring
@@ -170,7 +214,7 @@ Returns the most recent audits (kept in memory, used by the dashboard).
 Every audit starts at 100 points. Each failed check deducts a weighted amount based on severity (see `utils/constants.js` for the exact weight table):
 
 | Score | Rating |
-|---|---|
+| --- | --- |
 | 90–100 | Excellent |
 | 75–89 | Good |
 | 55–74 | Moderate |
@@ -194,7 +238,7 @@ This project is already deployed at [ciphergate-4xxs.onrender.com](https://ciphe
 ## 🛠️ Troubleshooting
 
 | Issue | Fix |
-|---|---|
+| --- | --- |
 | `EADDRINUSE` on start | Another process is using the port. Change `PORT` in `.env` or stop the other process. |
 | Audit fails with "Unable to reach ..." | The target may be offline, blocking automated requests, or require JavaScript rendering (not supported in v1 — see below). Try a different URL, or increase `REQUEST_TIMEOUT_MS` in `.env`. |
 | Audit fails with "internal/private addresses is not permitted" | This is intentional — CipherGate blocks scans of `localhost` and private IP ranges to reduce SSRF risk. |
