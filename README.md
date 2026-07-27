@@ -63,57 +63,50 @@ Built by **Mahesha** as a cybersecurity + full-stack development project.
 > **Design note:** the audit engine analyzes the static HTML/HTTP response of a target page (via `axios` + `cheerio`) rather than rendering it in a headless browser. This keeps the tool lightweight and dependency-free to install. Headless-browser rendering for JavaScript-heavy/SPA login pages is listed under *Future Improvements* below.
 
 ## 📁 Folder Structure
-ciphergate/
-│
-├── server.js # Express app entry point
-├── package.json
-├── .env.example
-├── .gitignore
-├── README.md
-│
-├── routes/
-│ ├── audit.js # POST /audit, GET /audit/history
-│ └── report.js # GET /report/pdf/:id, GET /report/json/:id
-│
-├── controllers/
-│ ├── auditController.js # orchestrates the scan pipeline
-│ └── reportController.js # serves report downloads
-│
-├── services/
-│ ├── headerScanner.js
-│ ├── cookieScanner.js
-│ ├── loginScanner.js
-│ ├── tlsScanner.js
-│ ├── csrfScanner.js
-│ ├── jwtScanner.js
-│ ├── captchaScanner.js
-│ ├── mfaScanner.js
-│ ├── scoreCalculator.js # combines all findings into a 0-100 score
-│ └── reportGenerator.js # builds the JSON report and renders the PDF
-│
-├── utils/
-│ ├── validator.js # URL validation + basic SSRF guarding
-│ ├── helpers.js
-│ └── constants.js # scoring weights, severities, detection signatures
-│
-├── middleware/
-│ ├── errorHandler.js
-│ └── logger.js
-│
-├── public/
-│ ├── css/style.css
-│ ├── js/main.js # scan form logic (landing page)
-│ ├── js/dashboard.js # audit history + quick scan
-│ ├── js/report.js # renders the report page
-│ └── images/
-│
-├── views/
-│ ├── index.html # scan landing page
-│ ├── dashboard.html # audit history dashboard
-│ └── report.html # report viewer
-│
-├── reports/ # generated PDF/JSON reports (gitignored)
-└── screenshots/ # UI screenshots referenced in this README
+## 📁 Folder Structure
+
+- **`ciphergate/`**
+  - `server.js` — Express app entry point
+  - `package.json`
+  - `.env.example`
+  - `.gitignore`
+  - `README.md`
+  - **`routes/`**
+    - `audit.js` — `POST /audit`, `GET /audit/history`
+    - `report.js` — `GET /report/pdf/:id`, `GET /report/json/:id`
+  - **`controllers/`**
+    - `auditController.js` — orchestrates the scan pipeline
+    - `reportController.js` — serves report downloads
+  - **`services/`**
+    - `headerScanner.js`
+    - `cookieScanner.js`
+    - `loginScanner.js`
+    - `tlsScanner.js`
+    - `csrfScanner.js`
+    - `jwtScanner.js`
+    - `captchaScanner.js`
+    - `mfaScanner.js`
+    - `scoreCalculator.js` — combines all findings into a 0–100 score
+    - `reportGenerator.js` — builds the JSON report and renders the PDF
+  - **`utils/`**
+    - `validator.js` — URL validation + basic SSRF guarding
+    - `helpers.js`
+    - `constants.js` — scoring weights, severities, detection signatures
+  - **`middleware/`**
+    - `errorHandler.js`
+    - `logger.js`
+  - **`public/`**
+    - `css/style.css`
+    - `js/main.js` — scan form logic (landing page)
+    - `js/dashboard.js` — audit history + quick scan
+    - `js/report.js` — renders the report page
+    - `images/`
+  - **`views/`**
+    - `index.html` — scan landing page
+    - `dashboard.html` — audit history dashboard
+    - `report.html` — report viewer
+  - **`reports/`** — generated PDF/JSON reports *(gitignored)*
+  - **`screenshots/`** — UI screenshots referenced in this README
 
 ## 🚀 Installation
 
